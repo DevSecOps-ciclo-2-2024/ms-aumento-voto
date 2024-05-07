@@ -99,9 +99,33 @@ jobs:
         run: | 
           #docker push clagosu/ms-aumento-voto:latest
           echo "Docker push"
+
+  Image-Vulnerability-Analysis:
+    needs: 
+      - SAST
+      - SCA
+    runs-on: ubuntu-latest
+
+    steps:
+    
+      - name: Image Analysis
+        run: |
+          echo "Image Analysis"
+
+  Docker-push:
+    needs: 
+      - Image-Vulnerability-Analysis
+      
+    runs-on: ubuntu-latest
+
+    steps:
+    
+      - name: Docker push
+        run: |
+          echo "Docker push"
   
   Deploy:
-    needs: Docker-build
+    needs: Docker-push
     runs-on: self-hosted
 
     steps:
