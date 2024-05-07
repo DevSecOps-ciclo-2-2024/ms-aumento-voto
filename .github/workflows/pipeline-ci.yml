@@ -28,7 +28,16 @@ jobs:
       - name: Ejecucion Test Unitarios
         run: |
           mvn package test
-     
+          
+  SAST:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:   
+    
+      - name: Clonacion de codigo
+        uses: actions/checkout@v4
+      
       - name: Setup Java JDK
         uses: actions/setup-java@v4.2.1
         with:
@@ -51,6 +60,12 @@ jobs:
         #with:
           #scanMetadataReportFile: target/sonar/report-task.txt
           
+  Docker-build:
+    needs: SAST
+    runs-on: ubuntu-latest
+
+    steps:
+    
       - name: Docker Login
         uses: docker/login-action@v3.1.0
         with:
