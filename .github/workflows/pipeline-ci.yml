@@ -6,7 +6,7 @@ on:
 
 jobs:
   
-  build:
+  Build:
     
     runs-on: ubuntu-latest
 
@@ -30,7 +30,7 @@ jobs:
           mvn package test
           
   SAST:
-    needs: build
+    needs: Build
     runs-on: ubuntu-latest
 
     steps:   
@@ -84,8 +84,8 @@ jobs:
         run: | 
           docker push clagosu/ms-aumento-voto:latest
 
-  deploy:
-    needs: build
+  Deploy:
+    needs: Docker-build
     runs-on: self-hosted
 
     steps:
@@ -95,4 +95,18 @@ jobs:
       
       - name: Despliegue
         run: |
-          kubectl apply -f deploy.yaml
+          echo "Despliegue"
+          #kubectl apply -f deploy.yaml
+  DAST:
+    needs: Deploy
+    runs-on: self-hosted
+
+    steps:
+
+      - name: Clonacion de codigo
+        uses: actions/checkout@v4
+      
+      - name: Despliegue
+        run: |
+          echo "Despliegue"
+          #kubectl apply -f deploy.yaml
