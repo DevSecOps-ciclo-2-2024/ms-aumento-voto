@@ -73,7 +73,9 @@ jobs:
           #scanMetadataReportFile: target/sonar/report-task.txt
           
   Docker-build:
-    needs: SAST
+    needs: 
+    - SAST
+    - SCA
     runs-on: ubuntu-latest
 
     steps:
@@ -93,17 +95,10 @@ jobs:
         run: | 
           docker build -t clagosu/ms-aumento-voto:latest .
           echo "Docker build"
-          
-          
-      - name: Docker push
-        run: | 
-          #docker push clagosu/ms-aumento-voto:latest
-          echo "Docker push"
 
   Image-Vulnerability-Analysis:
-    needs: 
-      - SAST
-      - SCA
+    needs: Docker-build
+    
     runs-on: ubuntu-latest
 
     steps:
