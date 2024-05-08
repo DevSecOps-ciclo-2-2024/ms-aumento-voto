@@ -93,7 +93,7 @@ jobs:
       
       - name: Docker build
         run: | 
-          docker build -t clagosu/ms-aumento-voto:latest .
+          #docker build -t clagosu/ms-aumento-voto:latest .
           echo "Docker build"
 
   Image-Vulnerability-Analysis:
