@@ -134,7 +134,7 @@ jobs:
           #kubectl apply -f deploy.yaml
   DAST:
     needs: Deploy
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
 
     steps:
 
